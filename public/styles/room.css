@@ -107,7 +107,6 @@
   padding: 1.4rem;
 }
 
-
 .question-wrapper .question-content p {
   margin-left: 1.6rem;
   word-break: break-word;
@@ -153,3 +152,28 @@
   visibility: hidden;
 }
 
+/* No Questions Include */
+.no-questions {
+  text-align: center;
+  margin-top: 5.2rem;
+}
+
+.no-questions img {
+  max-width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.no-questions :nth-child(2) {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.no-questions :nth-child(3) {
+  font-family: 'Opens Sans', sans-serif;
+  font-size: 1.4rem;
+  margin-top: 1.3rem;
+  color: var(--grey-dark);
+  line-height: 1.9rem;
+}

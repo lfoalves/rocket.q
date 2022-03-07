@@ -8,7 +8,7 @@ module.exports = {
     let roomId
     let isRoom = true
 
-    /* verifica se a senha é vazia | Criar Sala*/
+    /* verificar se a senha é vazia ou zero | FORM CRIAR SALA*/
     if (pass == 0 || pass == '') {
       res.render('parts/404-senha')
     } else {
@@ -33,9 +33,8 @@ module.exports = {
             ${pass}
           )`)
         }
-        console.log(roomsExistIds)
-        console.log(isRoom)
       }
+
       console.log(`id = ${parseInt(roomId)}, senha = ${pass}`)
 
       await db.close()
@@ -56,7 +55,6 @@ module.exports = {
       `SELECT * FROM questions WHERE room = ${roomId} and read = 1`
     )
 
-    /* verifica espaço de questões vazia */
     let isNoQuestions
 
     if (questions.length == 0) {
@@ -73,48 +71,22 @@ module.exports = {
     })
   },
 
-  // enter(req, res) {
-  //   /* verifica se o código da sala é vazio | Entrar Sala*/
-  //   const codRoomId = req.body.codRoomId
-  //   if (codRoomId == 0 || codRoomId == '') {
-  //     res.render('parts/404-sala')
-  //   } else {
-  //     const roomId = req.body.roomId
-  //
-  //     res.redirect(`/room/${roomId}`)
-  //   }
-  //}
-
   async enter(req, res) {
     const db = await Database()
-
     let roomId = req.body.codRoomID
 
-    /* verifica se esse número já existe */
+    /* verificar se a sala existe | FORM ENTRAR SALA */
     const roomsExistIds = await db.all(`SELECT id FROM rooms`)
-    SalaExiste = roomsExistIds.some(roomExistId => roomExistId === roomId)
+    isRoom = roomsExistIds.some(roomExistId => roomExistId === roomId)
 
+    console.log(roomId)
     console.log(roomsExistIds)
-    console.log(SalaExiste)
-    console.log(roomId)
 
     if (roomId == 0 || roomId == '') {
-      roomId = 0
-    }
-
-    console.log(roomId)
-
-    /* se a sala não existe redireciona para o Início */
-    //
-
-    /* verifica se o código da sala é vazio | Entrar Sala*/
-    if (roomId == 0 || roomId == '') {
-      if (roomsExistIds != roomId) {
-        res.render('parts/404-sala')
-      }
+      res.render('parts/404-sala')
     } else {
+      db.close()
       res.redirect(`/room/${roomId}`)
-      await db.close()
     }
   }
 }
